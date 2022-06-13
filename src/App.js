@@ -1,9 +1,12 @@
 import React from 'react';
-import './App.css';
+import HomeSearch from './pages/HomeSearch';
+import StarProvider from './context/StarProvider';
 
 function App() {
   return (
-    <span>Helloooo, App!</span>
+    <StarProvider>
+      <HomeSearch />
+    </StarProvider>
   );
 }
 
