@@ -2,9 +2,19 @@ import React from 'react';
 
 function HeaderFilter() {
   return (
-    <div>
-      <h1>HeaderFilter</h1>
-    </div>
+    <header className="header-filter">
+      <h1>Trybe - Star Wars</h1>
+      <div className="search">
+        <input type="text" placeholder="Search" />
+      </div>
+      <div className="header-filter-content">
+        <button
+          type="button"
+        >
+          Filtrar
+        </button>
+      </div>
+    </header>
   );
 }
 
