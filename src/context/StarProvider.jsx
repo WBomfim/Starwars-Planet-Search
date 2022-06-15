@@ -8,6 +8,27 @@ function StarProvider({ children }) {
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
 
+  const FILTER_COLUMN = [
+    'population',
+    'orbital_period',
+    'diameter',
+    'rotation_period',
+    'surface_water',
+  ];
+  const [filterByColumn, setFilterByColumn] = useState(FILTER_COLUMN);
+
+  const INITIAL_FILTER_COLUMN = [
+    {
+      column: 'population',
+      comparison: 'maior que',
+      value: '0',
+    },
+  ];
+  const [
+    filterByNumericValues,
+    setFilterByNumericValues,
+  ] = useState(INITIAL_FILTER_COLUMN);
+
   useEffect(() => {
     const fetchPlanets = async () => {
       const dataPlanets = await getPlanets();
@@ -39,6 +60,12 @@ function StarProvider({ children }) {
 
     filterByName,
     setFilterByName,
+
+    filterByColumn,
+    setFilterByColumn,
+
+    filterByNumericValues,
+    setFilterByNumericValues,
   };
 
   return (
