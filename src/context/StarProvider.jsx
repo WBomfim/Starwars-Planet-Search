@@ -4,25 +4,41 @@ import StarContext from './StarContext';
 import getPlanets from '../services/fetchPlanetsAPI';
 
 function StarProvider({ children }) {
-  const [state, setState] = useState({
-    data: [],
-  });
+  const [data, setData] = useState([]);
+  const [filteredPlanets, setFilteredPlanets] = useState([]);
+  const [filterByName, setFilterByName] = useState({ name: '' });
 
   useEffect(() => {
-    const fetchStar = async () => {
-      const data = await getPlanets();
-      setState({
-        ...state,
-        data,
-      });
+    const fetchPlanets = async () => {
+      const dataPlanets = await getPlanets();
+      setData([...dataPlanets]);
+      setFilteredPlanets([...dataPlanets]);
     };
 
-    fetchStar();
+    fetchPlanets();
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  useEffect(() => {
+    const filterPlanetsName = () => {
+      const filterPlanets = data
+        .filter((planet) => planet.name.toLowerCase()
+          .includes(filterByName.name.toLowerCase()));
+      setFilteredPlanets([...filterPlanets]);
+    };
+
+    filterPlanetsName();
+  }, [filterByName, data]);
+
   const context = {
-    ...state,
-    setState,
+    data,
+    setData,
+
+    filteredPlanets,
+    setFilteredPlanets,
+
+    filterByName,
+    setFilterByName,
   };
 
   return (
