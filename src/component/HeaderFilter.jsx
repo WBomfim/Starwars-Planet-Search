@@ -8,6 +8,7 @@ function HeaderFilter() {
     filterByColumn,
     filterByNumericValues,
     setFilterByNumericValues,
+    filterByValuesInputs,
   } = useContext(StarContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -40,7 +41,7 @@ function HeaderFilter() {
           <select
             id="column"
             name="column"
-            value={ filterByNumericValues.column }
+            value={ filterByNumericValues[0].column }
             onChange={ handleChangeFilter }
             data-testid="column-filter"
           >
@@ -55,7 +56,7 @@ function HeaderFilter() {
           <select
             id="comparison"
             name="comparison"
-            value={ filterByNumericValues.comparison }
+            value={ filterByNumericValues[0].comparison }
             onChange={ handleChangeFilter }
             data-testid="comparison-filter"
           >
@@ -66,17 +67,18 @@ function HeaderFilter() {
         </label>
 
         <input
-          type="text"
+          type="number"
           placeholder="valor"
           name="value"
-          value={ filterByNumericValues.value }
+          value={ filterByNumericValues[0].value }
           onChange={ handleChangeFilter }
-          data-testid="name-filter"
+          data-testid="value-filter"
         />
 
         <button
           type="button"
           data-testid="button-filter"
+          onClick={ filterByValuesInputs }
         >
           Filtrar
         </button>

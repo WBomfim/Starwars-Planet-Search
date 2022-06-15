@@ -8,26 +8,26 @@ function StarProvider({ children }) {
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
 
-  const FILTER_COLUMN = [
+  const FILTER_COLUMN_OPTIONS = [
     'population',
     'orbital_period',
     'diameter',
     'rotation_period',
     'surface_water',
   ];
-  const [filterByColumn, setFilterByColumn] = useState(FILTER_COLUMN);
+  const [filterByColumn, setFilterByColumn] = useState(FILTER_COLUMN_OPTIONS);
 
-  const INITIAL_FILTER_COLUMN = [
+  const INITIAL_FILTER_VALUES = [
     {
       column: 'population',
       comparison: 'maior que',
-      value: '0',
+      value: 0,
     },
   ];
   const [
     filterByNumericValues,
     setFilterByNumericValues,
-  ] = useState(INITIAL_FILTER_COLUMN);
+  ] = useState(INITIAL_FILTER_VALUES);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -51,6 +51,26 @@ function StarProvider({ children }) {
     filterPlanetsName();
   }, [filterByName, data]);
 
+  const filterByValuesInputs = () => {
+    const filterPlanets = filteredPlanets.filter((planet) => {
+      const column = planet[filterByNumericValues[0].column];
+      const { comparison } = filterByNumericValues[0];
+      const { value } = filterByNumericValues[0];
+      if (comparison === 'maior que') {
+        return Number(column) > Number(value);
+      }
+      if (comparison === 'menor que') {
+        return Number(column) < Number(value);
+      }
+      if (comparison === 'igual a') {
+        return Number(column) === Number(value);
+      }
+      return column;
+    });
+
+    setFilteredPlanets([...filterPlanets]);
+  };
+
   const context = {
     data,
     setData,
@@ -66,6 +86,8 @@ function StarProvider({ children }) {
 
     filterByNumericValues,
     setFilterByNumericValues,
+
+    filterByValuesInputs,
   };
 
   return (
