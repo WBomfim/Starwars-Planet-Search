@@ -8,7 +8,7 @@ function HeaderFilter() {
     filterByColumn,
     filterByNumericValues,
     setFilterByNumericValues,
-    filterByValuesInputs,
+    changeFilter,
   } = useContext(StarContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -16,10 +16,12 @@ function HeaderFilter() {
   };
 
   const handleChangeFilter = ({ target }) => {
-    setFilterByNumericValues([{
-      ...filterByNumericValues[0],
+    const filterValues = {
+      ...filterByNumericValues[filterByNumericValues.length - 1],
       [target.name]: target.value,
-    }]);
+    };
+    filterByNumericValues.splice(filterByNumericValues.length - 1, 1, filterValues);
+    setFilterByNumericValues([...filterByNumericValues]);
   };
 
   return (
@@ -41,12 +43,12 @@ function HeaderFilter() {
           <select
             id="column"
             name="column"
-            value={ filterByNumericValues[0].column }
+            value={ filterByNumericValues[filterByNumericValues.length - 1].column }
             onChange={ handleChangeFilter }
             data-testid="column-filter"
           >
             {filterByColumn.map(
-              (column) => (<option key={ column } value={ column }>{column}</option>),
+              ({ filter }) => (<option key={ filter } value={ filter }>{filter}</option>),
             )}
           </select>
         </label>
@@ -56,7 +58,7 @@ function HeaderFilter() {
           <select
             id="comparison"
             name="comparison"
-            value={ filterByNumericValues[0].comparison }
+            value={ filterByNumericValues[filterByNumericValues.length - 1].comparison }
             onChange={ handleChangeFilter }
             data-testid="comparison-filter"
           >
@@ -70,7 +72,7 @@ function HeaderFilter() {
           type="number"
           placeholder="valor"
           name="value"
-          value={ filterByNumericValues[0].value }
+          value={ filterByNumericValues[filterByNumericValues.length - 1].value }
           onChange={ handleChangeFilter }
           data-testid="value-filter"
         />
@@ -78,7 +80,7 @@ function HeaderFilter() {
         <button
           type="button"
           data-testid="button-filter"
-          onClick={ filterByValuesInputs }
+          onClick={ changeFilter }
         >
           Filtrar
         </button>

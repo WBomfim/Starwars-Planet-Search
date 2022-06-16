@@ -9,11 +9,11 @@ function StarProvider({ children }) {
   const [filterByName, setFilterByName] = useState({ name: '' });
 
   const FILTER_COLUMN_OPTIONS = [
-    'population',
-    'orbital_period',
-    'diameter',
-    'rotation_period',
-    'surface_water',
+    { filter: 'population', id: 1 },
+    { filter: 'orbital_period', id: 2 },
+    { filter: 'diameter', id: 3 },
+    { filter: 'rotation_period', id: 4 },
+    { filter: 'surface_water', id: 5 },
   ];
   const [filterByColumn, setFilterByColumn] = useState(FILTER_COLUMN_OPTIONS);
 
@@ -51,11 +51,11 @@ function StarProvider({ children }) {
     filterPlanetsName();
   }, [filterByName, data]);
 
-  const filterByValuesInputs = () => {
+  const filterByValuesInputs = (index) => {
     const filterPlanets = filteredPlanets.filter((planet) => {
-      const column = planet[filterByNumericValues[0].column];
-      const { comparison } = filterByNumericValues[0];
-      const { value } = filterByNumericValues[0];
+      const column = planet[filterByNumericValues[index].column];
+      const { comparison } = filterByNumericValues[index];
+      const { value } = filterByNumericValues[index];
       if (comparison === 'maior que') {
         return Number(column) > Number(value);
       }
@@ -69,6 +69,27 @@ function StarProvider({ children }) {
     });
 
     setFilteredPlanets([...filterPlanets]);
+  };
+
+  const addFilterByValuesInputs = () => {
+    filterByNumericValues.splice(
+      filterByNumericValues.length - 1,
+      0,
+      filterByNumericValues[filterByNumericValues.length - 1],
+    );
+    setFilterByNumericValues([...filterByNumericValues]);
+  };
+
+  const changeFilter = () => {
+    if (filterByNumericValues.length > 1) {
+      setFilteredPlanets([...data]);
+      filterByNumericValues.forEach((_filter, index) => {
+        filterByValuesInputs(index);
+      });
+    } else {
+      filterByValuesInputs(0);
+    }
+    addFilterByValuesInputs();
   };
 
   const context = {
@@ -87,7 +108,7 @@ function StarProvider({ children }) {
     filterByNumericValues,
     setFilterByNumericValues,
 
-    filterByValuesInputs,
+    changeFilter,
   };
 
   return (
