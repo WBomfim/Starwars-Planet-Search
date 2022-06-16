@@ -80,16 +80,35 @@ function StarProvider({ children }) {
     setFilterByNumericValues([...filterByNumericValues]);
   };
 
+  const removeFilterColumnOptions = () => {
+    const filterColumnOptions = filterByColumn.filter((filter) => (
+      filter.filter !== filterByNumericValues[filterByNumericValues.length - 1].column))
+      .sort((a, b) => a.id - b.id);
+    setFilterByColumn([...filterColumnOptions]);
+
+    const filterValue = filterColumnOptions.length === 0 ? ''
+      : filterColumnOptions[0].filter;
+    const filterValues = {
+      ...filterByNumericValues[filterByNumericValues.length - 1],
+      column: filterValue,
+    };
+    filterByNumericValues.splice(filterByNumericValues.length - 1, 1, filterValues);
+    setFilterByNumericValues([...filterByNumericValues]);
+  };
+
   const changeFilter = () => {
-    if (filterByNumericValues.length > 1) {
-      setFilteredPlanets([...data]);
-      filterByNumericValues.forEach((_filter, index) => {
-        filterByValuesInputs(index);
-      });
-    } else {
-      filterByValuesInputs(0);
+    if (filterByColumn.length > 0) {
+      if (filterByNumericValues.length > 1) {
+        setFilteredPlanets([...data]);
+        filterByNumericValues.forEach((_filter, index) => {
+          filterByValuesInputs(index);
+        });
+      } else {
+        filterByValuesInputs(0);
+      }
+      addFilterByValuesInputs();
+      removeFilterColumnOptions();
     }
-    addFilterByValuesInputs();
   };
 
   const context = {
