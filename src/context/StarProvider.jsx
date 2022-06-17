@@ -51,8 +51,8 @@ function StarProvider({ children }) {
     filterPlanetsName();
   }, [filterByName, data]);
 
-  const filterByValuesInputs = (index) => {
-    const filterPlanets = filteredPlanets.filter((planet) => {
+  const filterByValuesInputs = (index, array = filteredPlanets) => {
+    const filterPlanets = array.filter((planet) => {
       const column = planet[filterByNumericValues[index].column];
       const { comparison } = filterByNumericValues[index];
       const { value } = filterByNumericValues[index];
@@ -68,7 +68,7 @@ function StarProvider({ children }) {
       return column;
     });
 
-    setFilteredPlanets([...filterPlanets]);
+    return filterPlanets;
   };
 
   const addFilterByValuesInputs = () => {
@@ -82,15 +82,16 @@ function StarProvider({ children }) {
 
   const removeFilterColumnOptions = () => {
     const filterColumnOptions = filterByColumn.filter((filter) => (
-      filter.filter !== filterByNumericValues[filterByNumericValues.length - 1].column))
-      .sort((a, b) => a.id - b.id);
-    setFilterByColumn([...filterColumnOptions]);
+      filter.filter !== filterByNumericValues[filterByNumericValues.length - 1].column));
+    setFilterByColumn([...filterColumnOptions].sort((a, b) => a.id - b.id));
 
     const filterValue = filterColumnOptions.length === 0 ? ''
       : filterColumnOptions[0].filter;
+
     const filterValues = {
-      ...filterByNumericValues[filterByNumericValues.length - 1],
       column: filterValue,
+      comparison: 'maior que',
+      value: 0,
     };
     filterByNumericValues.splice(filterByNumericValues.length - 1, 1, filterValues);
     setFilterByNumericValues([...filterByNumericValues]);
@@ -99,16 +100,41 @@ function StarProvider({ children }) {
   const changeFilter = () => {
     if (filterByColumn.length > 0) {
       if (filterByNumericValues.length > 1) {
-        setFilteredPlanets([...data]);
-        filterByNumericValues.forEach((_filter, index) => {
-          filterByValuesInputs(index);
-        });
+        const filter = filterByValuesInputs(filterByNumericValues.length - 1);
+        setFilteredPlanets([...filter]);
       } else {
-        filterByValuesInputs(0);
+        const filter = filterByValuesInputs(0);
+        setFilteredPlanets([...filter]);
       }
       addFilterByValuesInputs();
       removeFilterColumnOptions();
     }
+  };
+
+  const removeFilterByValuesInputs = ({ target: { parentNode: { id } } }) => {
+    let teste = [...data];
+    for (let index = 0; index < filterByNumericValues.length - 1; index += 1) {
+      if (filterByNumericValues[index].column !== id) {
+        teste = [...filterByValuesInputs(index, teste)];
+      }
+    }
+    setFilteredPlanets([...teste]);
+
+    const setFilterByColumnOptions = FILTER_COLUMN_OPTIONS
+      .find((filter) => (filter.filter === id));
+    setFilterByColumn(
+      [...filterByColumn, setFilterByColumnOptions].sort((a, b) => a.id - b.id),
+    );
+
+    const newFilterByNumericValues = filterByNumericValues
+      .filter((filter) => (filter.column !== id));
+    setFilterByNumericValues([...newFilterByNumericValues]);
+  };
+
+  const removeAllFilters = () => {
+    setFilteredPlanets([...data]);
+    setFilterByNumericValues(INITIAL_FILTER_VALUES);
+    setFilterByColumn(FILTER_COLUMN_OPTIONS);
   };
 
   const context = {
@@ -128,6 +154,8 @@ function StarProvider({ children }) {
     setFilterByNumericValues,
 
     changeFilter,
+    removeFilterByValuesInputs,
+    removeAllFilters,
   };
 
   return (
