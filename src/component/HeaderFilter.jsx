@@ -8,7 +8,7 @@ function HeaderFilter() {
     filterByColumn,
     filterByNumericValues,
     setFilterByNumericValues,
-    changeFilter,
+    addFilter,
   } = useContext(StarContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -25,7 +25,7 @@ function HeaderFilter() {
   };
 
   return (
-    <header className="header-filter">
+    <>
       <h1>Trybe - Star Wars</h1>
       <div className="search">
         <input
@@ -80,12 +80,12 @@ function HeaderFilter() {
         <button
           type="button"
           data-testid="button-filter"
-          onClick={ changeFilter }
+          onClick={ addFilter }
         >
           Filtrar
         </button>
       </div>
-    </header>
+    </>
   );
 }
 

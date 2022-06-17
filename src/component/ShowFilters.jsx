@@ -4,7 +4,7 @@ import StarContext from '../context/StarContext';
 function ShowFilters() {
   const {
     filterByNumericValues,
-    removeFilterByValuesInputs,
+    removeFilter,
     removeAllFilters,
   } = useContext(StarContext);
 
@@ -15,17 +15,17 @@ function ShowFilters() {
       </div>
       <div>
         <ul>
-          {filterByNumericValues.map((filter, index) => (
+          {filterByNumericValues.map(({ column, comparison, value }, index) => (
             index === filterByNumericValues.length - 1 ? null : (
               <li
                 key={ index }
-                id={ filter.column }
                 data-testid="filter"
               >
-                <span>{`${filter.column} ${filter.comparison} ${filter.value}`}</span>
+                <span>{`${column} ${comparison} ${value}`}</span>
                 <button
                   type="button"
-                  onClick={ (event) => removeFilterByValuesInputs(event) }
+                  id={ column }
+                  onClick={ (event) => removeFilter(event) }
                 >
                   X
                 </button>

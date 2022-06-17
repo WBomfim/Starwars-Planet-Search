@@ -6,7 +6,9 @@ import Table from '../component/Table';
 function HomeSearch() {
   return (
     <>
-      <HeaderFilter />
+      <header>
+        <HeaderFilter />
+      </header>
       <main>
         <ShowFilters />
         <Table />

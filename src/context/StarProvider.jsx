@@ -8,26 +8,23 @@ function StarProvider({ children }) {
   const [filteredPlanets, setFilteredPlanets] = useState([]);
   const [filterByName, setFilterByName] = useState({ name: '' });
 
-  const FILTER_COLUMN_OPTIONS = [
+  const INITIAL_COLUMN_OPTIONS = [
     { filter: 'population', id: 1 },
     { filter: 'orbital_period', id: 2 },
     { filter: 'diameter', id: 3 },
     { filter: 'rotation_period', id: 4 },
     { filter: 'surface_water', id: 5 },
   ];
-  const [filterByColumn, setFilterByColumn] = useState(FILTER_COLUMN_OPTIONS);
+  const [filterByColumn, setFilterByColumn] = useState(INITIAL_COLUMN_OPTIONS);
 
-  const INITIAL_FILTER_VALUES = [
+  const INITIAL_FILTER = [
     {
       column: 'population',
       comparison: 'maior que',
       value: 0,
     },
   ];
-  const [
-    filterByNumericValues,
-    setFilterByNumericValues,
-  ] = useState(INITIAL_FILTER_VALUES);
+  const [filterByNumericValues, setFilterByNumericValues] = useState(INITIAL_FILTER);
 
   useEffect(() => {
     const fetchPlanets = async () => {
@@ -37,7 +34,6 @@ function StarProvider({ children }) {
     };
 
     fetchPlanets();
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -51,7 +47,7 @@ function StarProvider({ children }) {
     filterPlanetsName();
   }, [filterByName, data]);
 
-  const filterByValuesInputs = (index, array = filteredPlanets) => {
+  const filterBySelectValues = (index, array = filteredPlanets) => {
     const filterPlanets = array.filter((planet) => {
       const column = planet[filterByNumericValues[index].column];
       const { comparison } = filterByNumericValues[index];
@@ -80,7 +76,7 @@ function StarProvider({ children }) {
     setFilterByNumericValues([...filterByNumericValues]);
   };
 
-  const removeFilterColumnOptions = () => {
+  const removeOptionFilterByColumn = () => {
     const filterColumnOptions = filterByColumn.filter((filter) => (
       filter.filter !== filterByNumericValues[filterByNumericValues.length - 1].column));
     setFilterByColumn([...filterColumnOptions].sort((a, b) => a.id - b.id));
@@ -97,30 +93,27 @@ function StarProvider({ children }) {
     setFilterByNumericValues([...filterByNumericValues]);
   };
 
-  const changeFilter = () => {
+  const addFilter = () => {
     if (filterByColumn.length > 0) {
-      if (filterByNumericValues.length > 1) {
-        const filter = filterByValuesInputs(filterByNumericValues.length - 1);
-        setFilteredPlanets([...filter]);
-      } else {
-        const filter = filterByValuesInputs(0);
-        setFilteredPlanets([...filter]);
-      }
+      const filter = filterBySelectValues(filterByNumericValues.length - 1);
+      setFilteredPlanets([...filter]);
+
       addFilterByValuesInputs();
-      removeFilterColumnOptions();
+      removeOptionFilterByColumn();
     }
   };
 
-  const removeFilterByValuesInputs = ({ target: { parentNode: { id } } }) => {
-    let teste = [...data];
-    for (let index = 0; index < filterByNumericValues.length - 1; index += 1) {
-      if (filterByNumericValues[index].column !== id) {
-        teste = [...filterByValuesInputs(index, teste)];
+  const removeFilter = ({ target: { id } }) => {
+    let filterAcc = [...data];
+    filterByNumericValues.forEach((filter, index) => {
+      if (filter.column !== id && index < filterByNumericValues.length - 1) {
+        const filtered = filterBySelectValues(index, filterAcc);
+        filterAcc = [...filtered];
       }
-    }
-    setFilteredPlanets([...teste]);
+    });
+    setFilteredPlanets([...filterAcc]);
 
-    const setFilterByColumnOptions = FILTER_COLUMN_OPTIONS
+    const setFilterByColumnOptions = INITIAL_COLUMN_OPTIONS
       .find((filter) => (filter.filter === id));
     setFilterByColumn(
       [...filterByColumn, setFilterByColumnOptions].sort((a, b) => a.id - b.id),
@@ -133,28 +126,23 @@ function StarProvider({ children }) {
 
   const removeAllFilters = () => {
     setFilteredPlanets([...data]);
-    setFilterByNumericValues(INITIAL_FILTER_VALUES);
-    setFilterByColumn(FILTER_COLUMN_OPTIONS);
+    setFilterByNumericValues(INITIAL_FILTER);
+    setFilterByColumn(INITIAL_COLUMN_OPTIONS);
   };
 
   const context = {
-    data,
-    setData,
-
     filteredPlanets,
-    setFilteredPlanets,
 
     filterByName,
     setFilterByName,
 
     filterByColumn,
-    setFilterByColumn,
 
     filterByNumericValues,
     setFilterByNumericValues,
 
-    changeFilter,
-    removeFilterByValuesInputs,
+    addFilter,
+    removeFilter,
     removeAllFilters,
   };
 
