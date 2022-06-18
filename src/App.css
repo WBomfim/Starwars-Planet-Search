@@ -1,0 +1,8 @@
+body {
+  background-color: rgb(29, 29, 29);
+  color: white;
+  font-family: Droid Sans , Helvetica , sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}

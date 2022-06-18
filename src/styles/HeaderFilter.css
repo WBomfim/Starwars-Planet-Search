@@ -1,0 +1,100 @@
+header {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+header h1 {
+  color: yellow;
+  font-size: 2.8rem;
+  font-weight: bold;
+  margin: 25px 0 8px;
+}
+
+header .search input {
+  background-color: rgb(29, 29, 29);
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 5px;
+  text-align: center;
+  width: 100%;
+}
+
+header .header-filter-content {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+  margin: 35px 0 35px;
+  width: 95%;
+}
+
+header .header-filter-content .label-select {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+}
+
+header .header-filter-content label {
+  color: white;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+header .header-filter-content  .radios-select {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+header .header-filter-content select {
+  color: white;
+  background-color: rgb(29, 29, 29);
+  border: none;
+  border-bottom: 2px solid rgb(184, 184, 184);
+  font-size: 1.5rem;
+  margin-left: -5px;
+  padding: 5px;
+}
+
+header .header-filter-content input {
+  color: white;
+  background-color: rgb(29, 29, 29);
+  border: 1px solid rgb(184, 184, 184);
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 5px;
+  text-align: center;
+  width: 150px;
+}
+
+header .header-filter-content .lable-radio {
+  align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  gap: 3px;
+}
+
+header .header-filter-content .radio-button {
+  width: 20px;
+  height: 25px;
+}
+
+header .header-filter-content button {
+  color: yellow;
+  background-color: rgb(29, 29, 29);
+  border: 1px solid yellow;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 5px;
+  text-align: center;
+  width: 130px;
+  height: 100px;
+}
+
+header .header-filter-content .button-filter {
+  margin-right: 10px;
+}

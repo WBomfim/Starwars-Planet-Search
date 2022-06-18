@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StarContext from '../context/StarContext';
+import '../styles/HeaderFilter.css';
 
 function HeaderFilter() {
   const {
@@ -48,7 +49,7 @@ function HeaderFilter() {
         />
       </div>
       <div className="header-filter-content">
-        <label htmlFor="column_filter">
+        <label className="label-select" htmlFor="column_filter">
           Coluna:
           <select
             id="column_filter"
@@ -63,7 +64,7 @@ function HeaderFilter() {
           </select>
         </label>
 
-        <label htmlFor="comparison">
+        <label className="label-select" htmlFor="comparison">
           Coluna:
           <select
             id="comparison"
@@ -88,6 +89,7 @@ function HeaderFilter() {
         />
 
         <button
+          className="button-filter"
           type="button"
           data-testid="button-filter"
           onClick={ addFilter }
@@ -95,7 +97,7 @@ function HeaderFilter() {
           Filtrar
         </button>
 
-        <label htmlFor="column_order">
+        <label className="label-select" htmlFor="column_order">
           Ordenar:
           <select
             id="column_order"
@@ -112,31 +114,35 @@ function HeaderFilter() {
           </select>
         </label>
 
-        <label htmlFor="order-ASC">
-          <input
-            type="radio"
-            id="order-ASC"
-            name="order"
-            value="ASC"
-            checked={ order.order === 'ASC' }
-            onChange={ handleChangeOrder }
-            data-testid="column-sort-input-asc"
-          />
-          Ascendente
-        </label>
+        <div className="radios-select">
+          <label className="lable-radio" htmlFor="order-ASC">
+            <input
+              className="radio-button"
+              type="radio"
+              id="order-ASC"
+              name="order"
+              value="ASC"
+              checked={ order.order === 'ASC' }
+              onChange={ handleChangeOrder }
+              data-testid="column-sort-input-asc"
+            />
+            Ascendente
+          </label>
 
-        <label htmlFor="order-DESC">
-          <input
-            type="radio"
-            id="order-DESC"
-            name="order"
-            value="DESC"
-            checked={ order.order === 'DESC' }
-            onChange={ handleChangeOrder }
-            data-testid="column-sort-input-desc"
-          />
-          Descendente
-        </label>
+          <label className="lable-radio" htmlFor="order-DESC">
+            <input
+              className="radio-button"
+              type="radio"
+              id="order-DESC"
+              name="order"
+              value="DESC"
+              checked={ order.order === 'DESC' }
+              onChange={ handleChangeOrder }
+              data-testid="column-sort-input-desc"
+            />
+            Descendente
+          </label>
+        </div>
 
         <button
           type="button"
