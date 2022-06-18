@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StarContext from '../context/StarContext';
+import '../styles/ShowFilters.css';
 
 function ShowFilters() {
   const {
@@ -10,7 +11,7 @@ function ShowFilters() {
 
   return (
     filterByNumericValues.length > 1 && (
-      <section>
+      <section className="filters-container">
         <div>
           <h2>Filtros:</h2>
         </div>
@@ -22,7 +23,9 @@ function ShowFilters() {
                   key={ index }
                   data-testid="filter"
                 >
-                  <span>{`${column} ${comparison} ${value}`}</span>
+                  <div>
+                    <span>{`${column} ${comparison} ${value}`}</span>
+                  </div>
                   <button
                     type="button"
                     id={ column }
@@ -36,6 +39,7 @@ function ShowFilters() {
         </div>
         <div>
           <button
+            className="remove-all-filters"
             type="button"
             data-testid="button-remove-filters"
             onClick={ removeAllFilters }

@@ -1,0 +1,43 @@
+.filters-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 30px;
+  width: 95%;
+}
+
+.filters-container h2 {
+  color: yellow;
+}
+
+.filters-container li {
+  list-style: none;
+  display: flex;
+  margin: 10px;
+}
+
+.filters-container li div {
+  font-size: 18px;
+  margin-right: 10px;
+  width: 270px;
+}
+
+.filters-container li button {
+  color: white;
+  background-color: red;
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.filters-container .remove-all-filters {
+  margin-left: 50px;
+  color: yellow;
+  background-color: rgb(29, 29, 29);
+  border: 1px solid yellow;
+  border-radius: 5px;
+  font-size: 1.5rem;
+  padding: 5px;
+  text-align: center;
+  width: 130px;
+  height: 100px;
+}
