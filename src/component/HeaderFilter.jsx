@@ -8,7 +8,10 @@ function HeaderFilter() {
     filterByColumn,
     filterByNumericValues,
     setFilterByNumericValues,
+    order,
+    setOrder,
     addFilter,
+    handleOrder,
   } = useContext(StarContext);
 
   const handleChangeSearch = ({ target }) => {
@@ -22,6 +25,13 @@ function HeaderFilter() {
     };
     filterByNumericValues.splice(filterByNumericValues.length - 1, 1, filterValues);
     setFilterByNumericValues([...filterByNumericValues]);
+  };
+
+  const handleChangeOrder = ({ target }) => {
+    setOrder({
+      ...order,
+      [target.name]: target.value,
+    });
   };
 
   return (
@@ -38,10 +48,10 @@ function HeaderFilter() {
         />
       </div>
       <div className="header-filter-content">
-        <label htmlFor="column">
+        <label htmlFor="column_filter">
           Coluna:
           <select
-            id="column"
+            id="column_filter"
             name="column"
             value={ filterByNumericValues[filterByNumericValues.length - 1].column }
             onChange={ handleChangeFilter }
@@ -83,6 +93,57 @@ function HeaderFilter() {
           onClick={ addFilter }
         >
           Filtrar
+        </button>
+
+        <label htmlFor="column_order">
+          Ordenar:
+          <select
+            id="column_order"
+            name="column"
+            value={ order.column }
+            onChange={ handleChangeOrder }
+            data-testid="column-sort"
+          >
+            <option value="population">population</option>
+            <option value="orbital_period">orbital_period</option>
+            <option value="diameter">diameter</option>
+            <option value="rotation_period">rotation_period</option>
+            <option value="surface_water">surface_water</option>
+          </select>
+        </label>
+
+        <label htmlFor="order-ASC">
+          <input
+            type="radio"
+            id="order-ASC"
+            name="order"
+            value="ASC"
+            checked={ order.order === 'ASC' }
+            onChange={ handleChangeOrder }
+            data-testid="column-sort-input-asc"
+          />
+          Ascendente
+        </label>
+
+        <label htmlFor="order-DESC">
+          <input
+            type="radio"
+            id="order-DESC"
+            name="order"
+            value="DESC"
+            checked={ order.order === 'DESC' }
+            onChange={ handleChangeOrder }
+            data-testid="column-sort-input-desc"
+          />
+          Descendente
+        </label>
+
+        <button
+          type="button"
+          onClick={ handleOrder }
+          data-testid="column-sort-button"
+        >
+          Ordenar
         </button>
       </div>
     </>

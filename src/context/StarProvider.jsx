@@ -26,11 +26,21 @@ function StarProvider({ children }) {
   ];
   const [filterByNumericValues, setFilterByNumericValues] = useState(INITIAL_FILTER);
 
+  const INITIAL_ORDER_OPTIONS = {
+    column: 'population',
+    order: 'ASC',
+  };
+  const [order, setOrder] = useState(INITIAL_ORDER_OPTIONS);
+
   useEffect(() => {
     const fetchPlanets = async () => {
       const dataPlanets = await getPlanets();
-      setData([...dataPlanets]);
-      setFilteredPlanets([...dataPlanets]);
+      const returnInSort = -1;
+      const InitialOrder = dataPlanets
+        .sort((a, b) => (a.name > b.name ? 1 : returnInSort));
+
+      setData([...InitialOrder]);
+      setFilteredPlanets([...InitialOrder]);
     };
 
     fetchPlanets();
@@ -73,6 +83,7 @@ function StarProvider({ children }) {
       0,
       filterByNumericValues[filterByNumericValues.length - 1],
     );
+
     setFilterByNumericValues([...filterByNumericValues]);
   };
 
@@ -83,13 +94,13 @@ function StarProvider({ children }) {
 
     const filterValue = filterColumnOptions.length === 0 ? ''
       : filterColumnOptions[0].filter;
-
     const filterValues = {
       column: filterValue,
       comparison: 'maior que',
       value: 0,
     };
     filterByNumericValues.splice(filterByNumericValues.length - 1, 1, filterValues);
+
     setFilterByNumericValues([...filterByNumericValues]);
   };
 
@@ -97,7 +108,6 @@ function StarProvider({ children }) {
     if (filterByColumn.length > 0) {
       const filter = filterBySelectValues(filterByNumericValues.length - 1);
       setFilteredPlanets([...filter]);
-
       addFilterByValuesInputs();
       removeOptionFilterByColumn();
     }
@@ -130,6 +140,24 @@ function StarProvider({ children }) {
     setFilterByColumn(INITIAL_COLUMN_OPTIONS);
   };
 
+  const handleOrder = () => {
+    const unknownElement = filteredPlanets
+      .filter((planet) => planet[order.column] === 'unknown');
+    const knownElement = filteredPlanets
+      .filter((planet) => planet[order.column] !== 'unknown');
+    const filterForSorted = [...knownElement, ...unknownElement];
+
+    const planetsOrder = filterForSorted.sort((a, b) => {
+      const columnA = a[order.column];
+      const columnB = b[order.column];
+      if (order.order === 'ASC') {
+        return columnA - columnB;
+      }
+      return columnB - columnA;
+    });
+    setFilteredPlanets([...planetsOrder]);
+  };
+
   const context = {
     filteredPlanets,
 
@@ -141,9 +169,13 @@ function StarProvider({ children }) {
     filterByNumericValues,
     setFilterByNumericValues,
 
+    order,
+    setOrder,
+
     addFilter,
     removeFilter,
     removeAllFilters,
+    handleOrder,
   };
 
   return (
