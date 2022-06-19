@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import StarContext from '../context/StarContext';
 import '../styles/HeaderFilter.css';
+import starImg from '../imagens/projectIntro.gif';
 
 function HeaderFilter() {
   const {
@@ -37,7 +38,10 @@ function HeaderFilter() {
 
   return (
     <>
-      <h1>Trybe - Star Wars</h1>
+      <div className="imagen-title">
+        <img src={ starImg } alt="starImagem" />
+        <h1>Trybe - Star Wars</h1>
+      </div>
       <div className="search">
         <input
           type="text"
