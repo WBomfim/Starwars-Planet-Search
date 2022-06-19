@@ -130,7 +130,15 @@ function StarProvider({ children }) {
     );
 
     const newFilterByNumericValues = filterByNumericValues
-      .filter((filter) => (filter.column !== id));
+      .filter((filter) => (filter.column !== id && filter.column !== ''));
+
+    const filterValues = {
+      column: id,
+      comparison: 'maior que',
+      value: 0,
+    };
+    newFilterByNumericValues.splice(filterByNumericValues.length, 1, filterValues);
+
     setFilterByNumericValues([...newFilterByNumericValues]);
   };
 
