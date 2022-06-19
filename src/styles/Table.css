@@ -1,0 +1,14 @@
+table {
+  width: 98%;
+}
+
+table th {
+  background-color: black;
+  height: 80px;
+}
+
+table td {
+  padding: 10px;
+  min-width: 70px;
+  border-bottom: 1.5px solid black;
+}

@@ -13,7 +13,8 @@ header h1 {
 }
 
 header .search input {
-  background-color: rgb(29, 29, 29);
+  color: white;
+  background-color: rgb(17, 17, 17);
   border: 1px solid rgb(184, 184, 184);
   border-radius: 5px;
   font-size: 1.5rem;
@@ -52,7 +53,7 @@ header .header-filter-content  .radios-select {
 
 header .header-filter-content select {
   color: white;
-  background-color: rgb(29, 29, 29);
+  background-color: rgb(17, 17, 17);
   border: none;
   border-bottom: 2px solid rgb(184, 184, 184);
   font-size: 1.5rem;
@@ -62,7 +63,7 @@ header .header-filter-content select {
 
 header .header-filter-content input {
   color: white;
-  background-color: rgb(29, 29, 29);
+  background-color: rgb(17, 17, 17);
   border: 1px solid rgb(184, 184, 184);
   border-radius: 5px;
   font-size: 1.5rem;
@@ -85,7 +86,7 @@ header .header-filter-content .radio-button {
 
 header .header-filter-content button {
   color: yellow;
-  background-color: rgb(29, 29, 29);
+  background-color: rgb(17, 17, 17);
   border: 1px solid yellow;
   border-radius: 5px;
   font-size: 1.5rem;

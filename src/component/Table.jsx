@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import StarContext from '../context/StarContext';
+import '../styles/Table.css';
 
 function Table() {
   const { filteredPlanets } = useContext(StarContext);
