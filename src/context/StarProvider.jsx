@@ -132,7 +132,8 @@ function StarProvider({ children }) {
     const newFilterByNumericValues = filterByNumericValues
       .filter((filter) => (filter.column !== id && filter.column !== ''));
 
-    if (filterByNumericValues.length === 6) {
+    const maxLengthFilter = 6;
+    if (filterByNumericValues.length === maxLengthFilter) {
       const filterValues = {
         column: id,
         comparison: 'maior que',
