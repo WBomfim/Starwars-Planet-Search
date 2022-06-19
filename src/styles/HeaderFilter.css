@@ -8,15 +8,15 @@ header {
 header h1 {
   color: yellow;
   font-size: 2.8rem;
-  font-weight: bold;
+  font-weight: 900;
   margin: 25px 0 8px;
 }
 
 header .search input {
-  color: white;
   background-color: rgb(17, 17, 17);
   border: 1px solid rgb(184, 184, 184);
   border-radius: 5px;
+  color: white;
   font-size: 1.5rem;
   padding: 5px;
   text-align: center;
@@ -27,45 +27,45 @@ header .header-filter-content {
   align-items: center;
   display: flex;
   justify-content: space-between;
-  margin: 35px 0 35px;
+  margin: 35px 0;
   width: 95%;
 }
 
 header .header-filter-content .label-select {
   color: white;
-  font-size: 1.2rem;
-  font-weight: bold;
   display: flex;
   flex-direction: column;
+  font-size: 1.2rem;
+  font-weight: 900;
 }
 
 header .header-filter-content label {
   color: white;
   font-size: 1.2rem;
-  font-weight: bold;
+  font-weight: 900;
 }
 
-header .header-filter-content  .radios-select {
+header .header-filter-content .radios-select {
   display: flex;
   flex-direction: column;
   gap: 15px;
 }
 
 header .header-filter-content select {
-  color: white;
   background-color: rgb(17, 17, 17);
   border: none;
   border-bottom: 2px solid rgb(184, 184, 184);
+  color: white;
   font-size: 1.5rem;
   margin-left: -5px;
   padding: 5px;
 }
 
 header .header-filter-content input {
-  color: white;
   background-color: rgb(17, 17, 17);
   border: 1px solid rgb(184, 184, 184);
   border-radius: 5px;
+  color: white;
   font-size: 1.5rem;
   padding: 5px;
   text-align: center;
@@ -75,25 +75,25 @@ header .header-filter-content input {
 header .header-filter-content .lable-radio {
   align-items: center;
   display: flex;
-  justify-content: flex-start;
   gap: 3px;
+  justify-content: flex-start;
 }
 
 header .header-filter-content .radio-button {
-  width: 20px;
   height: 25px;
+  width: 20px;
 }
 
 header .header-filter-content button {
-  color: yellow;
   background-color: rgb(17, 17, 17);
   border: 1px solid yellow;
   border-radius: 5px;
+  color: yellow;
   font-size: 1.5rem;
+  height: 100px;
   padding: 5px;
   text-align: center;
   width: 130px;
-  height: 100px;
 }
 
 header .header-filter-content .button-filter {

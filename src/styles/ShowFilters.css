@@ -1,6 +1,6 @@
 .filters-container {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: flex-start;
   margin-bottom: 30px;
   width: 95%;
@@ -11,8 +11,8 @@
 }
 
 .filters-container li {
-  list-style: none;
   display: flex;
+  list-style: none;
   margin: 10px;
 }
 
@@ -23,21 +23,21 @@
 }
 
 .filters-container li button {
-  color: white;
   background-color: red;
+  color: white;
   font-size: 18px;
   font-weight: 900;
 }
 
 .filters-container .remove-all-filters {
-  margin-left: 50px;
-  color: yellow;
   background-color: rgb(17, 17, 17);
   border: 1px solid yellow;
   border-radius: 5px;
+  color: yellow;
   font-size: 1.5rem;
+  height: 100px;
+  margin-left: 50px;
   padding: 5px;
   text-align: center;
   width: 130px;
-  height: 100px;
 }
