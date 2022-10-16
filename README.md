@@ -25,10 +25,13 @@
 
 </details>
 
-<details><summary> Ilustração da tabela:</summary>
+<details>
+  
+  <summary>🖼️ Ilustração da aplicação</summary><br />
 
- ![image](/home/wbomfim/Documentos/Repositórios/Projetos/Trybe/17_Starwars-Planet-Search_React/images/table-image.png)
-</details><br />
+ ![image](https://github.com/WBomfim/Starwars-Planet-Search_React/blob/main/images/table-image.png)
+ 
+</details>
 
 # Instruções para rodar o Projeto
 
